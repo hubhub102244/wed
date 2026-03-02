@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/7246/7246434.png">
+    <title>Hệ Thống Dịch Vụ - SMMAZ.NET</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
+        .news-scroll { padding-left: 100%; animation: scroll-text 26s linear infinite; display: inline-block; white-space: nowrap; }
+        @keyframes scroll-text { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        body { background-color: #f4f7fa; font-family: 'Segoe UI', sans-serif; color: #333; }
+        .navbar { z-index: 1050; border-bottom: 1px solid #eee; background: white; }
+        .sidebar-card { border: none; border-radius: 20px; position: sticky; top: 90px; background: white; }
+        .nav-pills .nav-link { color: #555; border-radius: 12px; padding: 12px 20px; margin-bottom: 5px; transition: 0.3s; font-weight: 500; border: 1px solid transparent; text-align: left; width: 100%; }
+        .nav-pills .nav-link.active { background-color: #e7f1ff !important; color: #0d6efd !important; border: 1px solid #cfe2ff; font-weight: 600; }
+        /* CSS tối ưu riêng cho nút Zalo trên Mobile */
+@media (max-width: 576px) {
+    .navbar .badge.bg-primary {
+        font-size: 10px !important;    /* Chữ nhỏ lại */
+        padding: 4px 8px !important;    /* Thu nhỏ viền nút */
+        font-weight: 500 !important;    /* Chữ thanh mảnh hơn */
+        letter-spacing: 0.3px;          /* Khoảng cách chữ */
+    }
+
+    .navbar .badge.bg-primary i {
+        font-size: 11px !important;    /* Icon nhỏ lại cho khớp với chữ */
+        margin-right: 3px !important;
+    }
+
+    /* Thu nhỏ luôn ảnh đại diện để đồng bộ */
+    .navbar img.rounded-circle {
+        width: 28px !important;
+        height: 28px !important;
+    }
+}
+        @media (max-width: 991.98px) { .sidebar-card { display: none; } .hide-on-guide { display: none !important; } .menu-guide { position: absolute; left: 55px; top: 18px; background: #ff4757; color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: bold; white-space: nowrap; animation: arrow-bounce 0.8s infinite alternate; z-index: 1060; } .menu-guide::before { content: ""; position: absolute; left: -6px; top: 50%; transform: translateY(-50%); border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-right: 6px solid #ff4757; } .modal-dialog { margin: 10px; } }
+        .notice-box { background-color: #fff4f4; border: 1px solid #ffe5e5; border-radius: 15px; padding: 20px; margin-bottom: 15px; word-wrap: break-word; }
+        .search-section { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .service-card { border: none; border-radius: 20px; transition: 0.3s; background: white; height: 100%; border: 1px solid #eee; }
+        .service-card:hover { transform: translateY(-5px); padding: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important; }
+        .dash-icon { width: 28px; height: 28px; object-fit: contain; }
+        .price-tag { color: #0d6efd; font-weight: 700; font-size: 1.1rem; }
+        @keyframes arrow-bounce { from { left: 52px; } to { left: 60px; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <button class="btn btn-light d-lg-none me-2 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar"><i class="bi bi-list fs-4 text-primary"></i></button>
+            <div class="menu-guide d-lg-none" id="guideText"><i class="bi bi-arrow-left"></i> Xem Tất Cả Dịch Vụ Tại Đây!</div>
+            <a class="navbar-brand fw-bold text-primary ms-1" href="javascript:void(0)" onclick="goToTab('home-content')">
+                <i class="bi bi-rocket-takeoff-fill me-1"></i><span id="brand-text">SMMAZ.NET</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="card sidebar-card shadow-sm p-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#home-content">Trang chủ</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#fb-content">Facebook</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tk-content">TikTok</button>
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#acc-neflix">Tài khoản Netflix</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="tab-content" id="mainTabContent">
+                <div class="tab-pane fade show active" id="home-content">
+                    <div class="search-section shadow-sm mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Tìm Nhanh MXH</label>
+                                <select class="form-select" id="quickSearch">
+                                    <option value="">-- Chọn --</option>
+                                    <option value="fb-content">Facebook</option>
+                                    <option value="tk-content">TikTok</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Dịch Vụ Khác</label>
+                                <select class="form-select" id="quickSearchAcc">
+                                    <option value="">-- Chọn --</option>
+                                    <option value="acc-neflix">Tài khoản Netflix</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="fb-content"><h4>Dịch vụ Facebook</h4></div>
+                <div class="tab-pane fade" id="tk-content"><h4>Dịch vụ TikTok</h4></div>
+                <div class="tab-pane fade" id="acc-neflix"><h4>Trang Tài khoản Netflix</h4></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function goToTab(tabId) {
+        // 1. Tìm tất cả các nút bấm menu trỏ đến tabId này
+        const triggerEls = document.querySelectorAll(`[data-bs-target="#${tabId}"]`);
+        
+        if (triggerEls.length > 0) {
+            // Nếu tìm thấy nút bấm tương ứng, kích hoạt nó
+            triggerEls.forEach(el => {
+                const tabTrigger = new bootstrap.Tab(el);
+                tabTrigger.show();
+            });
+        } else {
+            // 2. PHẦN QUAN TRỌNG: Nếu không tìm thấy nút menu (như trường hợp Netflix)
+            // Ta sẽ ép cái khung nội dung hiển thị lên
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                // Ẩn tất cả các tab đang mở
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('show', 'active');
+                });
+                // Hiện tab mong muốn
+                targetTab.classList.add('show', 'active');
+                
+                // Bỏ chọn tất cả các nút menu đang active
+                document.querySelectorAll('.nav-link').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+            }
+        }
+
+        // Đóng các thành phần phụ (menu mobile, hướng dẫn)
+        if (document.getElementById('guideText')) document.getElementById('guideText').style.setProperty('display', 'none', 'important');
+        const offcanvasInstance = bootstrap.Offcanvas.getInstance(document.getElementById('mobileSidebar'));
+        if (offcanvasInstance) offcanvasInstance.hide();
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Gán sự kiện cho các ô Select
+    document.getElementById('quickSearch')?.addEventListener('change', function() { if (this.value) goToTab(this.value); });
+    document.getElementById('quickSearchAcc')?.addEventListener('change', function() { if (this.value) goToTab(this.value); });
+</script>
+</body>
+</html>
