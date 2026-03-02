@@ -13,55 +13,85 @@
 body{
     background:#f4f7fa;
     font-family:'Poppins',sans-serif;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
     overflow:hidden;
+    position:relative;
 }
 
-/* METEOR RAIN */
+/* ===== METEOR ===== */
 .meteor{
     position:absolute;
+    top:-120px;
     width:2px;
-    height:80px;
-    background:linear-gradient(transparent,#ff00ff,#7a00ff);
-    opacity:0.7;
-    transform:rotate(45deg);
-    animation:fall linear infinite;
+    height:120px;
+    background:linear-gradient(to bottom,#ff4fd8,#9b5cff,transparent);
+    opacity:.6;
+    animation:meteorFall linear infinite;
 }
 
-@keyframes fall{
-    0%{transform:translateY(-200px) translateX(0) rotate(45deg);opacity:1}
-    100%{transform:translateY(120vh) translateX(-200px) rotate(45deg);opacity:0}
+@keyframes meteorFall{
+    0%{transform:translateY(0)}
+    100%{transform:translateY(120vh)}
 }
 
-.m1{left:10%;animation-duration:3s;animation-delay:0s}
-.m2{left:30%;animation-duration:4s;animation-delay:1s}
-.m3{left:55%;animation-duration:3.5s;animation-delay:2s}
-.m4{left:75%;animation-duration:5s;animation-delay:0.5s}
-.m5{left:90%;animation-duration:4.5s;animation-delay:1.5s}
+/* ===== STARS ===== */
+.star{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#d36bff;
+    border-radius:50%;
+    box-shadow:0 0 12px #d36bff;
+    animation:blink 2s infinite alternate;
+}
 
-/* CARD */
+@keyframes blink{
+    from{opacity:.2}
+    to{opacity:1}
+}
+
+/* ===== PLANETS ===== */
+.planet{
+    position:absolute;
+    animation:
+        floatPlanet 6s infinite alternate ease-in-out,
+        rotatePlanet 40s linear infinite;
+    opacity:.95;
+}
+
+@keyframes floatPlanet{
+    from{transform:translateY(-15px)}
+    to{transform:translateY(20px)}
+}
+
+@keyframes rotatePlanet{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+
+/* ===== CARD ===== */
 .container-404{
     background:#fff;
-    padding:60px 50px;
-    border-radius:30px;
+    padding:50px 40px;
+    border-radius:25px;
     text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.08);
-    max-width:600px;
-    width:92%;
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+    width:90%;
+    max-width:520px;
     position:relative;
-    z-index:2;
+    z-index:10;
 }
 
 .container-404::before{
     content:"";
     position:absolute;
     inset:0;
-    border-radius:30px;
+    border-radius:25px;
     padding:2px;
-    background:linear-gradient(45deg,#ff00ff,#7a00ff);
+    background:linear-gradient(45deg,#ff4fd8,#9b5cff);
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -69,103 +99,150 @@ body{
             mask-composite:exclude;
 }
 
-/* FLOAT */
-@keyframes float{
-    from{transform:translateY(-10px)}
-    to{transform:translateY(15px)}
-}
-
-/* STICKERS */
-.sticker{
-    position:absolute;
-    width:60px;
-    animation:float 4s ease-in-out infinite alternate;
-}
-
-.s1{top:-25px;left:-25px}
-.s2{top:-25px;right:-25px}
-.s3{bottom:-25px;left:-25px}
-.s4{bottom:-25px;right:-25px}
-
-/* ASTRONAUT */
-.astronaut{
-    width:150px;
-    margin-bottom:15px;
-    animation:float 3s ease-in-out infinite alternate;
-}
-
 /* TEXT */
 .title-404{
-    font-size:100px;
+    font-size:90px;
     font-weight:900;
-    background:linear-gradient(45deg,#ff00ff,#7a00ff);
+    background:linear-gradient(45deg,#ff4fd8,#9b5cff);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    text-shadow:0 0 25px rgba(255,0,255,0.4);
 }
 
 .subtitle{
-    font-size:18px;
+    font-size:16px;
     margin:15px 0 35px;
     color:#666;
 }
 
-/* BUTTON */
+.astronaut{
+    width:130px;
+    margin-bottom:15px;
+    animation:floatPlanet 3s infinite alternate ease-in-out;
+}
+
+/* ===== BUTTON NEON ===== */
 .home-btn{
     display:inline-block;
-    padding:14px 45px;
-    border-radius:50px;
+    padding:16px 48px;
+    border-radius:60px;
     font-weight:700;
     text-decoration:none;
-    background:linear-gradient(45deg,#ff00ff,#7a00ff);
+    font-size:16px;
+    letter-spacing:1px;
+    background:linear-gradient(45deg,#ff4fd8,#9b5cff);
     color:#fff;
-    box-shadow:0 10px 25px rgba(122,0,255,0.3);
-    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+        0 0 15px #ff4fd8,
+        0 0 35px #9b5cff,
+        0 0 70px rgba(155,92,255,.6);
+    animation:pulseGlow 2s infinite;
+    transition:.4s ease;
+}
+
+@keyframes pulseGlow{
+    0%{box-shadow:0 0 15px #ff4fd8,0 0 35px #9b5cff}
+    50%{box-shadow:0 0 30px #ff4fd8,0 0 70px #9b5cff}
+    100%{box-shadow:0 0 15px #ff4fd8,0 0 35px #9b5cff}
+}
+
+/* ánh sáng quét */
+.home-btn::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
+    transition:.6s;
+}
+
+.home-btn:hover::after{
+    left:100%;
 }
 
 .home-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 15px 35px rgba(122,0,255,0.5);
+    transform:scale(1.12);
 }
 
-@media(max-width:576px){
-    .title-404{font-size:70px}
-    .astronaut{width:110px}
+/* viền chạy */
+.home-btn::before{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:60px;
+    background:linear-gradient(90deg,#ff4fd8,#9b5cff,#ff4fd8);
+    background-size:400%;
+    animation:borderMove 4s linear infinite;
+    z-index:-1;
+}
+
+@keyframes borderMove{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+
+@media(max-width:480px){
+    .title-404{font-size:60px}
+    .astronaut{width:100px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Meteor Rain -->
-<div class="meteor m1"></div>
-<div class="meteor m2"></div>
-<div class="meteor m3"></div>
-<div class="meteor m4"></div>
-<div class="meteor m5"></div>
+<!-- Meteors -->
+<script>
+for(let i=0;i<18;i++){
+    let m=document.createElement("div");
+    m.className="meteor";
+    m.style.left=Math.random()*100+"%";
+    m.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(m);
+}
+</script>
 
+<!-- Stars -->
+<script>
+for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.top=Math.random()*100+"%";
+    s.style.left=Math.random()*100+"%";
+    s.style.width=(2+Math.random()*4)+"px";
+    s.style.height=s.style.width;
+    s.style.animationDuration=(1+Math.random()*2)+"s";
+    document.body.appendChild(s);
+}
+</script>
+
+<!-- PLANETS -->
+<img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="planet" style="top:8%;left:5%;width:80px;">
+<img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="planet" style="bottom:10%;right:5%;width:90px;">
+<img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" class="planet" style="top:70%;left:10%;width:70px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png" class="planet" style="top:15%;right:10%;width:75px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909749.png" class="planet" style="bottom:20%;left:40%;width:60px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909735.png" class="planet" style="top:35%;right:35%;width:65px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909730.png" class="planet" style="top:20%;left:25%;width:55px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909727.png" class="planet" style="bottom:25%;right:25%;width:65px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909753.png" class="planet" style="top:50%;left:70%;width:50px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909750.png" class="planet" style="top:75%;right:15%;width:45px;">
+<img src="https://cdn-icons-png.flaticon.com/512/2909/2909743.png" class="planet" style="bottom:10%;left:60%;width:70px;">
+
+<!-- CARD -->
 <div class="container-404">
-
-    <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="sticker s1">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="sticker s2">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" class="sticker s3">
-    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png" class="sticker s4">
-
     <img class="astronaut"
-    src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png">
-
+         src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png">
     <div class="title-404">404</div>
-
     <div class="subtitle">
         Trang bạn truy cập không tồn tại.<br>
         Hãy quay về MegaHub 🚀
     </div>
-
-    <!-- QUAN TRỌNG -->
     <a href="/index.html" class="home-btn">
-        Trở về Trang Chủ
+        🚀 Trở về MegaHub
     </a>
-
 </div>
 
 </body>
