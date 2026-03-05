@@ -34,6 +34,10 @@
         .support-btn { width: 55px; height: 55px; border-radius: 50%; background: #0062ff; color: #fff; border: none; box-shadow: 0 8px 25px rgba(0,98,255,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; animation: ripple 2s infinite; }
         .support-ui { display: none; position: absolute; bottom: 65px; right: 0; width: 180px; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
         @media(max-width: 991.98px) {
+            body, html {
+        overflow-x: hidden;
+        position: relative;
+    }
             .sidebar-card { display: none; }
             body { padding-bottom: 80px; }
             .support-root { bottom: 85px; }
