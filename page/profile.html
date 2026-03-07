@@ -91,7 +91,7 @@ body{background:#f0f2f5;font-family:'Segoe UI',sans-serif;}
     <h3 class="fw-bold sec-title"><img src="https://cdn-icons-gif.flaticon.com/18986/18986443.gif" alt="">Về tôi<span class="ms-auto small text-secondary d-none d-md-inline"><a href="https://megahub.io.vn/" target="_blank" rel="noopener" class="text-secondary text-decoration-none">https://megahub.io.vn/</a></span></h3>
     <div class="title-line"></div>
     <p class="text-secondary mb-0"></p>
-    <p class="text-center mb-0">no money no love</p>
+    <p class="text-center text-capitalize mb-0">“No money, no love.”</p>
     <P></P>
     <p class="text-center mb-0">Cảm ơn mọi người đã ủng hộ và đồng hành cùng mình trong suốt thời gian qua, chúc mọi người luôn vui vẻ và thành công trong cuộc sống!!!</p>
     <p class="text-center mb-0">Cần thêm dịch vụ gì nhắn mình nhé!</p>
@@ -120,7 +120,6 @@ style="width:100%;max-width:450px;height:auto;display:block;margin:auto;">
     <p class="text-secondary mb-0">Về trang chủ để xem thêm!!!!</p>
   </section>
 </div>
-
 <nav class="bottom-nav d-md-none">
   <div class="container">
     <div class="d-flex justify-content-between">
@@ -130,9 +129,7 @@ style="width:100%;max-width:450px;height:auto;display:block;margin:auto;">
     </div>
   </div>
 </nav>
-
 <button id="toTop" aria-label="Lên đầu"><i class="bi bi-arrow-up"></i></button>
-
 <script>
 const navLinks=[...document.querySelectorAll('#mainNav .nav-link')],sections=['about','payment','other'].map(id=>document.getElementById(id));
 const setActive=id=>navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${id}`));

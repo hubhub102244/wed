@@ -1,200 +1,183 @@
+<style>
+  /* Badge dùng chung */
+  .all-badge{font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;display:inline-block;line-height:1}
+  .all-normal{background:#e7f1ff;color:#0d6efd}
+  .all-hot{background:#ffe3e3;color:#e03131}
+
+  /* Khung filter đơn giản + nổi bật */
+  .all-filter-card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 10px 25px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.06);margin-bottom:14px}
+  .all-filter-tip{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:#0d6efd;margin:0 0 8px}
+  @keyframes tipBounce{from{transform:translateY(0)}to{transform:translateY(2px)}}
+  .all-filter-tip i{animation:tipBounce .7s infinite alternate}
+
+  .all-select{max-width:460px}
+  .all-select select{
+    width:100%;
+    border:1.5px solid rgba(13,110,253,.35) !important;
+    background:#f6f8fb !important;
+    padding:14px 14px !important;
+    border-radius:14px !important;
+    box-shadow:0 10px 22px rgba(13,110,253,.10) !important;
+    font-weight:800;
+  }
+  .all-select select:focus{
+    box-shadow:0 0 0 .25rem rgba(13,110,253,.18) !important;
+    border-color:rgba(13,110,253,.6) !important;
+  }
+
+  /* Nút mua xích vào trong 1 tí */
+  .buy-btn{font-size:11px;padding:.22rem .6rem}
+
+  
+</style>
+
 <div class="d-flex align-items-center mb-4">
-    <h4 class="fw-bold text-primary mb-0"><i class="bi bi-facebook me-2"></i>Dịch vụ Facebook</h4>
-    <span class="badge bg-primary-subtle text-primary ms-3 rounded-pill">16 Dịch vụ</span>
+  <h4 class="fw-bold text-primary mb-0"><i class="bi bi-facebook me-2"></i>Dịch vụ Facebook</h4>
+  <span class="badge bg-primary-subtle text-primary ms-3 rounded-pill">Nhiều dịch vụ</span>
 </div>
 
-<div class="row g-3">
-    
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Like Bài Viết</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Like thật, tốc độ lên nhanh, an toàn cho tài khoản.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">15đ <span class="text-muted fw-normal" style="font-size:10px">/like</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
+<div class="all-filter-card">
+  <div class="all-filter-tip">
+    <i class="bi bi-arrow-down"></i>
+    <span>Tất cả dịch vụ Facebook ở đây</span>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Follow Cá Nhân</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Tăng người theo dõi profile, nick thật hoạt động.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">35đ <span class="text-muted fw-normal" style="font-size:10px">/fl</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
+  <div class="all-select">
+    <select id="svcFilter" class="form-select">
+    <i class="bi bi-chevron-down select-icon"></i>
+      <option value="follow" selected>Follow</option>
+      <option value="like">Like</option>
+      <option value="share">Share</option>
+      <option value="comment">Comment</option>
+      <option value="reaction">Cảm xúc</option>
+    </select>
+  </div>
+</div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Like Fanpage</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Tăng like kèm follow cho Fanpage bán hàng.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">40đ <span class="text-muted fw-normal" style="font-size:10px">/like</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
+<div class="row g-3" id="svcList">
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Bình Luận (CMT)</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Bình luận theo nội dung có sẵn, tuỳ chỉnh tự do.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">200đ <span class="text-muted fw-normal" style="font-size:10px">/cmt</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- FOLLOW THƯỜNG -->
+  <div class="col-6 col-md-4" data-type="follow">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-normal mb-2">Facebook - Follow</div>
+      <h6 class="fw-bold small mb-1">Follow Cá Nhân (Tây)</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Tốc độ nhanh, ổn định.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">6.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Chia Sẻ (Share)</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Share bài viết về trang cá nhân / hội nhóm.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">150đ <span class="text-muted fw-normal" style="font-size:10px">/share</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- FOLLOW HOT -->
+  <div class="col-6 col-md-4" data-type="follow">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-hot mb-2">Facebook - HOT</div>
+      <h6 class="fw-bold small mb-1">Follow Việt</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Follow Việt chất lượng.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">20.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng View Video</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Lượt xem video thật, giúp dễ đề xuất.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">5đ <span class="text-muted fw-normal" style="font-size:10px">/view</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- FOLLOW VIP -->
+  <div class="col-6 col-md-4" data-type="follow">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-hot mb-2">Facebook - VIP</div>
+      <h6 class="fw-bold small mb-1">Follow Page</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Page Việt + ngoại.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">7.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Mắt Livestream</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Duy trì mắt xem ổn định suốt thời gian live.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">5đ <span class="text-muted fw-normal" style="font-size:10px">/mắt/p</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- LIKE -->
+  <div class="col-6 col-md-4" data-type="like">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-normal mb-2">Facebook - Like</div>
+      <h6 class="fw-bold small mb-1">Like Bài Viết</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Like thật, an toàn.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">15đ <span class="text-muted fw-normal" style="font-size:10px;">/like</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Member Group</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Mời thành viên vào nhóm thật, tương tác cao.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">30đ <span class="text-muted fw-normal" style="font-size:10px">/mem</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- SHARE -->
+  <div class="col-6 col-md-4" data-type="share">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-hot mb-2">Facebook - HOT</div>
+      <h6 class="fw-bold small mb-1">Share Bài Viết</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Share thật, tăng tiếp cận.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">20đ <span class="text-muted fw-normal" style="font-size:10px;">/share</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-danger-subtle text-danger mb-2" style="width: fit-content;">VIP</div>
-            <h6 class="fw-bold small mb-1">Đánh Giá 5 Sao</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Tăng uy tín cho Fanpage với đánh giá tích cực.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">500đ <span class="text-muted fw-normal" style="font-size:10px">/đg</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- COMMENT -->
+  <div class="col-6 col-md-4" data-type="comment">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-normal mb-2">Facebook - Comment</div>
+      <h6 class="fw-bold small mb-1">Comment Bài Viết</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">Comment chất lượng.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">50đ <span class="text-muted fw-normal" style="font-size:10px;">/cmt</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
+  </div>
 
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Cảm Xúc (Tim, Haha)</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Thả đa dạng cảm xúc cho bài viết nổi bật.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">20đ <span class="text-muted fw-normal" style="font-size:10px">/cx</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
+  <!-- REACTION -->
+  <div class="col-6 col-md-4" data-type="reaction">
+    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
+      <div class="all-badge all-hot mb-2">Facebook - VIP</div>
+      <h6 class="fw-bold small mb-1">Cảm Xúc Bài Viết</h6>
+      <p class="small text-muted mb-3" style="font-size:11px;">❤️ 😆 😮 😡 tuỳ chọn.</p>
+      <div class="d-flex justify-content-between align-items-center mt-auto">
+        <span class="fw-bold text-primary">22.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k</span></span>
+        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
+      </div>
     </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng View Story</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Lên nhanh, nick thật xem story facebook.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">10đ <span class="text-muted fw-normal" style="font-size:10px">/view</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Tăng Vote Cuộc Thi</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Vote bình chọn ảnh, thi hoa khôi, poll.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">100đ <span class="text-muted fw-normal" style="font-size:10px">/vote</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Facebook</div>
-            <h6 class="fw-bold small mb-1">Chia Sẻ Group Cùng Chủ Đề</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Target đúng khách hàng, share group sống.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">300đ <span class="text-muted fw-normal" style="font-size:10px">/lần</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-warning-subtle text-warning mb-2" style="width: fit-content;">Công cụ</div>
-            <h6 class="fw-bold small mb-1">Lọc Bạn Bè K Tương Tác</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Xóa bạn bè ảo, không bao giờ tương tác.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">9K <span class="text-muted fw-normal" style="font-size:10px">/lượt</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-warning-subtle text-warning mb-2" style="width: fit-content;">Công cụ</div>
-            <h6 class="fw-bold small mb-1">Bảo Mật Nick FB (Chống RIP)</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Cài đặt bảo mật nhiều lớp an toàn tuyệt đối.</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">50K <span class="text-muted fw-normal" style="font-size:10px">/nick</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-4">
-        <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-            <div class="badge bg-danger-subtle text-danger mb-2" style="width: fit-content;">VIP THÁNG</div>
-            <h6 class="fw-bold small mb-1">Gói VIP Like Tự Động</h6>
-            <p class="small text-muted mb-3" style="font-size: 11px;">Tự động tăng like khi đăng bài (Bao 30 ngày).</p>
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="fw-bold text-primary">99K <span class="text-muted fw-normal" style="font-size:10px">/tháng</span></span>
-                <button class="btn btn-primary btn-sm rounded-pill px-3 py-1" style="font-size: 11px;">Mua</button>
-            </div>
-        </div>
-    </div>
+  </div>
 
 </div>
+
+<div id="svcEmpty" class="text-center text-muted py-5" style="display:none;">
+  <i class="bi bi-info-circle fs-2 d-block mb-2"></i>
+  <b>Chưa có dịch vụ cho mục này</b>
+</div>
+
+<script>
+  (()=>{
+    const f=document.getElementById("svcFilter");
+    const l=document.getElementById("svcList");
+    const e=document.getElementById("svcEmpty");
+    const cards=[...l.querySelectorAll("[data-type]")];
+
+    const show=(t)=>{
+      t=(t||"follow").toLowerCase();
+      let n=0;
+      cards.forEach(x=>{
+        const ok=(x.dataset.type||"").toLowerCase()===t;
+        x.classList.toggle("d-none",!ok);
+        if(ok) n++;
+      });
+      e.style.display=n?"none":"block";
+    };
+
+    f.value="follow";
+    show("follow");
+
+    f.addEventListener("change",()=>{
+      show(f.value);
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+  })();
+</script>

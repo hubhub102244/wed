@@ -291,9 +291,15 @@
                 targetTab.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-primary"></div><p class="mt-2 text-muted fw-bold">Đang tải dữ liệu...</p></div>`;
                 
                 fetch('page/' + tabId.replace('-content', '.html'))
-                    .then(res => { if(!res.ok) throw new Error(); return res.text(); })
-                    .then(html => { targetTab.innerHTML = html; targetTab.setAttribute('data-loaded', 'true'); })
-                    .catch(() => { targetTab.innerHTML = `<div class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill fs-1"></i><p class="mt-2 fw-bold">Dịch vụ đang cập nhật...</p></div>`; });
+                .then(res => { if(!res.ok) throw new Error(); return res.text(); })
+                .then(html => { 
+                targetTab.innerHTML = html; 
+                targetTab.setAttribute('data-loaded', 'true');
+                initSvcFilter(targetTab); 
+    })
+            .catch(() => { 
+                targetTab.innerHTML = `<div class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill fs-1"></i><p class="mt-2 fw-bold">Dịch vụ đang cập nhật...</p></div>`; 
+    });
             }
         }
         document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
@@ -318,6 +324,33 @@
     const t=new bootstrap.Toast(el,{delay:1800});
     t.show();
   }
+function initSvcFilter(root){
+  const filter=root.querySelector("#svcFilter");
+  const list=root.querySelector("#svcList");
+  const empty=root.querySelector("#svcEmpty");
+  if(!filter || !list) return;
+
+  const cards=[...list.querySelectorAll("[data-type]")];
+
+  function apply(type){
+    let shown=0;
+    cards.forEach(c=>{
+      const t=(c.getAttribute("data-type")||"").trim().toLowerCase();
+      const ok=t===type;
+      c.classList.toggle("d-none", !ok);
+      if(ok) shown++;
+    });
+    if(empty) empty.style.display=shown?"none":"block";
+  }
+
+  if(!filter.value) filter.value="follow";
+  apply(filter.value);
+
+  filter.onchange=()=>{
+  window.scrollTo({top:0,behavior:"smooth"}); // ✅ luôn về đầu trang trước
+  apply(filter.value);
+};
+}
     window.onclick = () => { const ui = document.getElementById('support-ui'); if(ui) ui.style.display = 'none'; };
 </script>
 </body>
