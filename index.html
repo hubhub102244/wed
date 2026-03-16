@@ -42,6 +42,21 @@
             .menu-guide { position: absolute; left: 55px; top: 18px; background: #ff4757; color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; white-space: nowrap; animation: arrow-bounce .8s infinite alternate; z-index: 1060; }
             .menu-guide::before { content: ""; position: absolute; left: -6px; top: 50%; transform: translateY(-50%); border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-right: 6px solid #ff4757; }
         }
+        @media (max-width: 575.98px){
+        .navbar .container-fluid{
+        flex-wrap: nowrap; }
+        .navbar-brand{
+        font-size: 1.15rem !important;
+        margin-left: 4px !important;
+        white-space: nowrap; }
+        .navbar .badge{
+        font-size: 10px !important;
+        padding: 6px 8px !important;
+        white-space: nowrap; }
+        .navbar .container-fluid > .d-flex{
+        align-items: center;
+        flex-wrap: nowrap; }
+}
     </style>
 </head>
 <body>
@@ -294,9 +309,9 @@ new bootstrap.Modal(document.getElementById("popupAdmin")).show();
                     .then(res => { if(!res.ok) throw new Error(); return res.text(); })
                     .then(html => { 
                     targetTab.innerHTML = html;
-targetTab.getAttribute('data-loaded') !== 'true' && targetTab.setAttribute('data-loaded', 'true');
-runInlineScripts(targetTab);
-initSvcFilter(targetTab);
+                    targetTab.getAttribute('data-loaded') !== 'true' && targetTab.setAttribute('data-loaded', 'true');
+                    runInlineScripts(targetTab);
+                    initSvcFilter(targetTab);
                                 })
                 .catch(() => { 
                     targetTab.innerHTML = `<div class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill fs-1"></i><p class="mt-2 fw-bold">Dịch vụ đang cập nhật...</p></div>`; 
