@@ -9,16 +9,16 @@
 @keyframes hotShake{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
 @keyframes buyGlow{0%{box-shadow:0 0 0 0 rgba(13,110,253,.6)}70%{box-shadow:0 0 0 12px rgba(13,110,253,0)}100%{box-shadow:0 0 0 0 rgba(13,110,253,0)}}
 </style>
-<div class="d-flex align-items-center mb-4">
-    <h4 class="fw-bold text-primary mb-0">
-        <i class="bi bi-facebook me-2"></i>Facebook</h4>
+<div class="d-flex align-items-center mb-2">
+    <h4 class="fw-bold text-primary mb-2">
+        <i class="bi bi-facebook me-1"></i>Facebook</h4>
     <span class="badge bg-primary-subtle text-success ms-3 rounded-pill">
         🔥 Ổn định 🛡️ Chất lượng
     </span>
 </div>
 <p class="small text-muted mb-1 p-2 rounded" style="background:#d3d3d3;">
   <marquee behavior="scroll" direction="left">
-    💡 Tất cả dịch vụ đều có hỗ trợ <b>bán lẻ số lượng nhỏ</b>, các sản phẩm đều được bảo hành
+    💡 Tất cả dịch vụ đều có hỗ trợ <b>bán lẻ số lượng nhỏ</b>, các sản phẩm đều được bảo hành - có giảm giá nếu mua nhiều
   </marquee>
 </p>
 <div class="mb-3 p-2 border rounded bg-secondary-subtle">
@@ -49,13 +49,15 @@
 </div>
 <script>
 const zalo = "https://zalo.me/0942962616";
-const priceAdd = 2000;
+const priceAdd = 0;
 const services = [];
 function addService(type, title, note, price, unit, status="NONE"){
     services.push({type, title, note, price, unit, status});
 }
 
-addService("follow","Facebook Follow Cá Nhân","Follow nhanh ổn định",6000,"/1k","NEW");
+addService("follow","Tăng theo dõi","Follow ổn định, hàng chất lượng cao🔥, kéo khách hàng, có tương tác, tăng tiếp cận, bật được kiếm tiền từ facebook✅",16000,"/1k follow","HOT");
+addService("follow","Combo 10k follow ","Follow ổn định,chất lượng cao, tặng thêm 1-10% follow🔥, bật được kiếm tiền từ facebook✅",110000,"/1k follow","HOT");
+
 addService("share","Facebook Share Bài Viết","Share thật tăng tiếp cận",20,"/share","HOT");
 addService("like","Facebook Like Bài Viết","Like thật tăng tương tác",15,"/like","SALE");
 addService("comment","Facebook Comment","Comment random",50,"/cmt");
@@ -91,20 +93,20 @@ function render(data){
     data.forEach(s=>{
         const price = (s.price + priceAdd).toLocaleString("vi-VN") + "đ";
         html += `
-<div class="col-6 col-md-4" data-type="${s.type}">
+    <div class="col-6 col-md-4" data-type="${s.type}">
     <div class="card service-card shadow-sm p-3"> 
         ${getBadge(s.status)}
         <h6 class="fw-bold small"> <img src="https://cdn.mypanel.link/4cgr8h/9rjnzbd98rt8s5we.gif" width="18"> ${s.title}</h6>
         <p class="small text-muted mb-2" style="font-size:10px"> ${s.note}</p>
         <div class="fw-bold text-primary mb-2">
             ${price}
-            <span class="text-muted fw-normal" style="font-size:10px">${s.unit}</span>
+            <span class="text-muted fw-normal" style="font-size:12px">${s.unit}</span>
             <div class="badge-wrap">
-<span class="badge-green">Mới</span>
-<span class="badge-green">Đề xuất sử dụng</span>
-<span class="badge-green">Chạy lập tức</span>
-<span class="badge-green">Siêu nhanh</span>
-</div>
+            <span class="badge-green">NEW</span>
+            <span class="badge-green">Chất lượng</span>
+            <span class="badge-green">Đề xuất</span>
+            <span class="badge-green">Ổn định</span>
+        </div>
         </div>
         <button class="btn btn-primary btn-sm rounded-pill w-100 buy-btn">Mua ngay</button>
     </div>
