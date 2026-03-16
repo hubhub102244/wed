@@ -1,6 +1,140 @@
-<h4 class="fw-bold mb-4 text-primary"><i class="bi bi-facebook me-2"></i>Dịch vụ Facebook</h4>
-<div class="card p-4 border-0 shadow-sm rounded-4">
-    <h5>Trang mua dịch vụ Facebook</h5>
-    <p>Nội dung chi tiết các gói cước Facebook sẽ hiển thị tại đây.</p>
-    <h6 class="fw-bold small">Dịch vụ đang được cập nhật...</h6>
-    </div>
+<style>
+.badge-hot{background:#ffe3e3;color:#e03131;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content;animation:hotShake .8s infinite alternate}
+.badge-new{background:#e7f5ff;color:#1971c2;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.badge-sale{background:#fff3bf;color:#e67700;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.buy-btn{width:100%;font-size:11px;box-shadow:0 0 0 rgba(13,110,253,.6);animation:buyGlow 2s infinite}
+.service-card{border:1px solid #eee;border-radius:20px;transition:.25s}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.12)}
+@keyframes hotShake{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes buyGlow{0%{box-shadow:0 0 0 0 rgba(13,110,253,.6)}70%{box-shadow:0 0 0 12px rgba(13,110,253,0)}100%{box-shadow:0 0 0 0 rgba(13,110,253,0)}}
+</style>
+
+<div class="d-flex align-items-center mb-4">
+<h4 class="fw-bold text-danger mb-0">
+<i class="bi bi-instagram me-2"></i>
+Dịch vụ Instagram
+</h4>
+
+<span class="badge bg-danger-subtle text-danger ms-3 rounded-pill">
+Chạy ổn định
+</span>
+</div>
+
+<div class="mb-3">
+<b class="text-dark">✨ Tất cả dịch vụ Instagram ở đây</b>
+<i class="bi bi-arrow-down-square-fill text-muted"></i>
+
+<select id="svcFilter" class="form-select mt-2">
+<option value="">Tất cả dịch vụ</option>
+<option value="follow">Follow</option>
+<option value="like">Like</option>
+<option value="view">View</option>
+<option value="heart">Tim</option>
+</select>
+</div>
+
+<div class="row g-3" id="svcList"></div>
+
+<div id="svcEmpty" class="text-center text-muted py-5" style="display:none">
+<i class="bi bi-info-circle fs-2 d-block mb-2"></i>
+<b>Chưa có dịch vụ cho mục này</b>
+</div>
+
+<script>
+
+const zalo="https://zalo.me/0942962616"
+const priceAdd=0
+const services=[]
+
+function addService(type,title,note,price,unit,status="NONE"){
+services.push({type,title,note,price,unit,status})
+}
+
+
+/* DANH SÁCH DỊCH VỤ INSTAGRAM */
+
+addService("follow","Instagram Follow","Follow thật tăng uy tín",12000,"/1K Follow","HOT")
+
+addService("like","Instagram Like Bài Viết","Like thật tăng tương tác",8000,"/1K Like")
+
+addService("heart","Instagram Tim ❤️","Tim thật tăng tương tác",9000,"/1K Tim")
+
+addService("view","Instagram View Reel","Tăng view video Reel nhanh",5000,"/1K View","SALE")
+
+addService("view","Instagram View Story","View story tăng tiếp cận",4000,"/1K View")
+
+
+const list=document.getElementById("svcList")
+const filter=document.getElementById("svcFilter")
+
+function getBadge(status){
+if(status==="HOT")
+return `<div class="badge-hot mb-2">INSTAGRAM HOT 🔥</div>`
+
+if(status==="NEW")
+return `<div class="badge-new mb-2">INSTAGRAM NEW</div>`
+
+if(status==="SALE")
+return `<div class="badge-sale mb-2">INSTAGRAM SALE</div>`
+
+return `<div class="badge bg-danger-subtle text-danger mb-2" style="width:fit-content">INSTAGRAM</div>`
+}
+
+function render(data){
+
+const empty=document.getElementById("svcEmpty")
+list.innerHTML=""
+
+if(!data.length){
+empty.style.display="block"
+return
+}
+
+empty.style.display="none"
+data.sort((a,b)=>{
+if(a.status==="HOT" && b.status!=="HOT") return -1
+if(a.status!=="HOT" && b.status==="HOT") return 1
+return 0
+})
+let html=""
+data.forEach(s=>{
+const price=(s.price+priceAdd).toLocaleString("vi-VN")+"đ"
+html+=`
+<div class="col-6 col-md-4">
+<div class="card service-card shadow-sm p-3" data-type="${s.type}">
+${getBadge(s.status)}
+<h6 class="fw-bold small mb-1">${s.title}</h6>
+<p class="small text-muted mb-2" style="font-size:11px">
+${s.note}
+</p>
+<div class="fw-bold text-primary mb-2">
+${price}
+<span class="text-muted fw-normal" style="font-size:10px">
+${s.unit}
+</span>
+</div>
+<button class="btn btn-primary btn-sm rounded-pill buy-btn">
+Mua ngay
+</button>
+
+</div>
+</div>
+`
+})
+list.innerHTML=html
+}
+function applyFilter(){
+let type=filter.value
+let result=services.filter(s=>{
+return !type || s.type===type
+})
+render(result)
+}
+render(services)
+filter.onchange=applyFilter
+document.addEventListener("click",e=>{
+if(e.target.classList.contains("buy-btn")){
+window.open(zalo,"_blank")
+}
+})
+</script>

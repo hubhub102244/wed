@@ -1,0 +1,20 @@
+[
+{
+"platform":"facebook",
+"type":"follow",
+"title":"Facebook Follow Cá Nhân",
+"note":"Follow nhanh ổn định",
+"price":6000,
+"unit":"/1k",
+"status":"NEW"
+},
+{
+"platform":"facebook",
+"type":"share",
+"title":"Facebook Share Bài Viết",
+"note":"Share thật tăng tiếp cận",
+"price":20,
+"unit":"/share",
+"status":"HOT"
+}
+]

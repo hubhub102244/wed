@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Generator addService</title>
+<style>
+body{
+font-family:Arial;
+background:#f5f7fa;
+padding:30px;
+max-width:900px;
+margin:auto;
+}
+
+h2{
+margin-bottom:20px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-bottom:12px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+button{
+padding:10px 20px;
+background:#0062ff;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+textarea{
+width:100%;
+height:200px;
+margin-top:20px;
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+font-family:monospace;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Generator addService()</h2>
+
+<label>Type</label>
+<select id="type">
+<option value="like">Like</option>
+<option value="follow">Follow</option>
+<option value="share">Share</option>
+<option value="comment">Comment</option>
+<option value="reaction">Reaction</option>
+<option value="view">View</option>
+</select>
+
+<label>Tiêu đề</label>
+<input id="title">
+
+<label>Mô tả</label>
+<input id="note">
+
+<label>Giá</label>
+<input id="price" type="number">
+
+<label>Đơn vị</label>
+<input id="unit" value="/1K">
+
+<label>Status</label>
+<select id="status">
+<option value="">NONE</option>
+<option value="HOT">HOT</option>
+<option value="NEW">NEW</option>
+<option value="SALE">SALE</option>
+</select>
+
+<button onclick="gen()">Xuất addService()</button>
+
+<textarea id="result" placeholder="Code sẽ hiện ở đây..."></textarea>
+
+<script>
+
+function gen(){
+
+const type=document.getElementById("type").value
+const title=document.getElementById("title").value
+const note=document.getElementById("note").value
+const price=document.getElementById("price").value
+const unit=document.getElementById("unit").value
+const status=document.getElementById("status").value
+
+let code=""
+
+if(status)
+code=`addService("${type}","${title}","${note}",${price},"${unit}","${status}")`
+else
+code=`addService("${type}","${title}","${note}",${price},"${unit}")`
+
+document.getElementById("result").value=code
+
+}
+
+</script>
+
+</body>
+</html>

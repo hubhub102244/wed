@@ -1,183 +1,128 @@
 <style>
-  /* Badge dùng chung */
-  .all-badge{font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;display:inline-block;line-height:1}
-  .all-normal{background:#e7f1ff;color:#0d6efd}
-  .all-hot{background:#ffe3e3;color:#e03131}
-
-  /* Khung filter đơn giản + nổi bật */
-  .all-filter-card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 10px 25px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.06);margin-bottom:14px}
-  .all-filter-tip{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:#0d6efd;margin:0 0 8px}
-  @keyframes tipBounce{from{transform:translateY(0)}to{transform:translateY(2px)}}
-  .all-filter-tip i{animation:tipBounce .7s infinite alternate}
-
-  .all-select{max-width:460px}
-  .all-select select{
-    width:100%;
-    border:1.5px solid rgba(13,110,253,.35) !important;
-    background:#f6f8fb !important;
-    padding:14px 14px !important;
-    border-radius:14px !important;
-    box-shadow:0 10px 22px rgba(13,110,253,.10) !important;
-    font-weight:800;
-  }
-  .all-select select:focus{
-    box-shadow:0 0 0 .25rem rgba(13,110,253,.18) !important;
-    border-color:rgba(13,110,253,.6) !important;
-  }
-
-  /* Nút mua xích vào trong 1 tí */
-  .buy-btn{font-size:11px;padding:.22rem .6rem}
-
-  
+.badge-hot{background:#ffe3e3;color:#e03131;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content;animation:hotShake .8s infinite alternate}
+.badge-new{background:#e7f5ff;color:#0a0a0a;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.badge-sale{background:#fff3bf;color:#e67700;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.buy-btn{width:100%;font-size:11px;box-shadow:0 0 0 rgba(13,110,253,.6);animation:buyGlow 2s infinite}
+.service-card{border:1px solid #eee;border-radius:20px;transition:.25s}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.12)}
+.badge-green{background:#e6f9ed;color:#00a63e;font-size:9px;padding:2px 6px;border-radius:8px;border:1px solid #00c851;margin-right:1px;margin-bottom:1px;font-weight:600;display:inline-block;}
+@keyframes hotShake{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes buyGlow{0%{box-shadow:0 0 0 0 rgba(13,110,253,.6)}70%{box-shadow:0 0 0 12px rgba(13,110,253,0)}100%{box-shadow:0 0 0 0 rgba(13,110,253,0)}}
 </style>
-
 <div class="d-flex align-items-center mb-4">
-  <h4 class="fw-bold text-primary mb-0"><i class="bi bi-facebook me-2"></i>Dịch vụ Facebook</h4>
-  <span class="badge bg-primary-subtle text-primary ms-3 rounded-pill">Nhiều dịch vụ</span>
+    <h4 class="fw-bold text-primary mb-0">
+        <i class="bi bi-facebook me-2"></i> Facebook </h4>
+    <span class="badge bg-primary-subtle text-success ms-3 rounded-pill">
+        🔥 Cam kết ổn định 🛡️ Hỗ trợ dài hạn
+    </span>
 </div>
-
-<div class="all-filter-card">
-  <div class="all-filter-tip">
-    <i class="bi bi-arrow-down"></i>
-    <span>Tất cả dịch vụ Facebook ở đây</span>
-  </div>
-
-  <div class="all-select">
-    <select id="svcFilter" class="form-select">
-    <i class="bi bi-chevron-down select-icon"></i>
-      <option value="follow" selected>Follow</option>
-      <option value="like">Like</option>
-      <option value="share">Share</option>
-      <option value="comment">Comment</option>
-      <option value="reaction">Cảm xúc</option>
-    </select>
-  </div>
+<p class="small text-muted mb-1 p-2 rounded" style="background:#d3d3d3;">
+  <marquee behavior="scroll" direction="left">
+    💡 Tất cả dịch vụ đều có hỗ trợ <b>bán lẻ số lượng nhỏ</b>, các sản phẩm đều được bảo hành
+  </marquee>
+</p>
+<div class="mb-3 p-2 border rounded bg-light">
+  <b class="text-dark">✨ Tất cả dịch vụ <img src="https://cdn.mypanel.link/4cgr8h/9rjnzbd98rt8s5we.gif" width="18"><i class="text-primary"> Facebook </i>ở đây</b> 
+    <i class="bi bi-arrow-down-square-fill text-muted"></i>
+  <select id="svcFilter" class="form-select mt-2 border-info shadow-sm">
+    <option value="">Tất cả dịch vụ</option>
+    <option value="follow">👥 Follow 🟢 NEW</option>
+    <option value="like">❤️ Like</option>
+    <option value="likecomment">👍 Like commen</option>
+    <option value="share">🔁 Share</option>
+    <option value="addfriend">➕👤 Add friend</option>
+    <option value="comment">💬 Comment</option>
+    <option value="reaction">😆 Reaction</option>
+    <option value="viewstory">👀 Tăng view story</option>
+    <option value="live">📺 Tăng view live</option>
+    <option value="reactionstory">🔥 Reaction story</option>
+    <option value="membergroup">👨‍👩‍👧‍👦 Tăng thành viên nhóm</option>
+    <option value="likepage">⭐ Like page</option>
+    <option value="page5start">⭐️⭐️⭐️⭐️⭐️ Đánh giá page 5 sao</option>
+</select>
 </div>
-
 <div class="row g-3" id="svcList">
-
-  <!-- FOLLOW THƯỜNG -->
-  <div class="col-6 col-md-4" data-type="follow">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-normal mb-2">Facebook - Follow</div>
-      <h6 class="fw-bold small mb-1">Follow Cá Nhân (Tây)</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Tốc độ nhanh, ổn định.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">6.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
+    <div id="svcEmpty" class="col-12 text-center text-muted" style="display:none">
+        <i class="bi bi-info-circle fs-2 d-block mb-2"></i>
+        <b>Chưa có dịch vụ cho mục này</b>
     </div>
-  </div>
-
-  <!-- FOLLOW HOT -->
-  <div class="col-6 col-md-4" data-type="follow">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-hot mb-2">Facebook - HOT</div>
-      <h6 class="fw-bold small mb-1">Follow Việt</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Follow Việt chất lượng.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">20.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOLLOW VIP -->
-  <div class="col-6 col-md-4" data-type="follow">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-hot mb-2">Facebook - VIP</div>
-      <h6 class="fw-bold small mb-1">Follow Page</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Page Việt + ngoại.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">7.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k follow</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- LIKE -->
-  <div class="col-6 col-md-4" data-type="like">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-normal mb-2">Facebook - Like</div>
-      <h6 class="fw-bold small mb-1">Like Bài Viết</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Like thật, an toàn.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">15đ <span class="text-muted fw-normal" style="font-size:10px;">/like</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- SHARE -->
-  <div class="col-6 col-md-4" data-type="share">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-hot mb-2">Facebook - HOT</div>
-      <h6 class="fw-bold small mb-1">Share Bài Viết</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Share thật, tăng tiếp cận.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">20đ <span class="text-muted fw-normal" style="font-size:10px;">/share</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMMENT -->
-  <div class="col-6 col-md-4" data-type="comment">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-normal mb-2">Facebook - Comment</div>
-      <h6 class="fw-bold small mb-1">Comment Bài Viết</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">Comment chất lượng.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">50đ <span class="text-muted fw-normal" style="font-size:10px;">/cmt</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- REACTION -->
-  <div class="col-6 col-md-4" data-type="reaction">
-    <div class="card service-card shadow-sm p-3 h-100 d-flex flex-column">
-      <div class="all-badge all-hot mb-2">Facebook - VIP</div>
-      <h6 class="fw-bold small mb-1">Cảm Xúc Bài Viết</h6>
-      <p class="small text-muted mb-3" style="font-size:11px;">❤️ 😆 😮 😡 tuỳ chọn.</p>
-      <div class="d-flex justify-content-between align-items-center mt-auto">
-        <span class="fw-bold text-primary">22.000đ <span class="text-muted fw-normal" style="font-size:10px;">/1k</span></span>
-        <a class="btn btn-primary btn-sm rounded-pill buy-btn" href="https://zalo.me/0942962616" target="_blank" rel="noopener">Mua</a>
-      </div>
-    </div>
-  </div>
-
 </div>
-
-<div id="svcEmpty" class="text-center text-muted py-5" style="display:none;">
-  <i class="bi bi-info-circle fs-2 d-block mb-2"></i>
-  <b>Chưa có dịch vụ cho mục này</b>
-</div>
-
 <script>
-  (()=>{
-    const f=document.getElementById("svcFilter");
-    const l=document.getElementById("svcList");
-    const e=document.getElementById("svcEmpty");
-    const cards=[...l.querySelectorAll("[data-type]")];
+const zalo = "https://zalo.me/0942962616";
+const priceAdd = 2000;
+const services = [];
+function addService(type, title, note, price, unit, status="NONE"){
+    services.push({type, title, note, price, unit, status});
+}
 
-    const show=(t)=>{
-      t=(t||"follow").toLowerCase();
-      let n=0;
-      cards.forEach(x=>{
-        const ok=(x.dataset.type||"").toLowerCase()===t;
-        x.classList.toggle("d-none",!ok);
-        if(ok) n++;
-      });
-      e.style.display=n?"none":"block";
-    };
+addService("follow","Facebook Follow Cá Nhân","Follow nhanh ổn định",6000,"/1k","NEW");
+addService("share","Facebook Share Bài Viết","Share thật tăng tiếp cận",20,"/share","HOT");
+addService("like","Facebook Like Bài Viết","Like thật tăng tương tác",15,"/like","SALE");
+addService("comment","Facebook Comment","Comment random",50,"/cmt");
+addService("reaction","Facebook Reaction","❤️ 😆 😮 😡",22000,"/1k","HOT");
 
-    f.value="follow";
-    show("follow");
+const list = document.getElementById("svcList");
+const filter = document.getElementById("svcFilter");
 
-    f.addEventListener("change",()=>{
-      show(f.value);
-      window.scrollTo({top:0,behavior:"smooth"});
+function getBadge(status){
+    if(status==="HOT") return `<div class="badge-hot mb-2">FACEBOOK HOT 🔥</div>`;
+    if(status==="NEW") return `<div class="badge-new mb-2">FACEBOOK NEW</div>`;
+    if(status==="SALE") return `<div class="badge-sale mb-2">FACEBOOK SALE</div>`;
+    return `<div class="badge bg-primary-subtle text-primary mb-2" style="width:fit-content">FACEBOOK</div>`;
+}
+function render(data){
+    const empty = document.getElementById("svcEmpty");
+    list.innerHTML = "";
+
+    if(!data.length){
+        empty.style.display = "block";
+        return;
+    }
+
+    empty.style.display = "none";
+
+    data.sort((a,b)=>{
+        if(a.status==="HOT" && b.status!=="HOT") return -1;
+        if(a.status!=="HOT" && b.status==="HOT") return 1;
+        return 0;
     });
-  })();
+
+    let html = "";
+    data.forEach(s=>{
+        const price = (s.price + priceAdd).toLocaleString("vi-VN") + "đ";
+        html += `
+<div class="col-6 col-md-4" data-type="${s.type}">
+    <div class="card service-card shadow-sm p-3"> 
+        ${getBadge(s.status)}
+        <h6 class="fw-bold small"> <img src="https://cdn.mypanel.link/4cgr8h/9rjnzbd98rt8s5we.gif" width="18"> ${s.title}</h6>
+        <p class="small text-muted mb-2" style="font-size:10px"> ${s.note}</p>
+        <div class="fw-bold text-primary mb-2">
+            ${price}
+            <span class="text-muted fw-normal" style="font-size:10px">${s.unit}</span>
+            <div class="badge-wrap">
+<span class="badge-green">Mới</span>
+<span class="badge-green">Đề xuất sử dụng</span>
+<span class="badge-green">Chạy lập tức</span>
+<span class="badge-green">Siêu nhanh</span>
+</div>
+        </div>
+        <button class="btn btn-primary btn-sm rounded-pill w-100 buy-btn">Mua ngay</button>
+    </div>
+</div>`;
+    });
+
+    list.innerHTML = html;
+}
+function applyFilter(){
+    const type = filter.value.trim();
+    const result = services.filter(s => !type || s.type === type);
+    render(result);
+}
+filter.onchange = applyFilter;
+render(services);
+document.addEventListener("click", e=>{
+    if(e.target.classList.contains("buy-btn")){
+        window.open(zalo,"_blank");
+    }
+});
 </script>

@@ -1,0 +1,10 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.0.0"
+  }
+}

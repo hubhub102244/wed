@@ -7,7 +7,6 @@
     <title>Hệ Thống Dịch Vụ Đa Nền Tảng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
     <style>
         html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; background: #f4f7fa; font-family: 'Segoe UI', sans-serif; color: #333; }
         .hot-fire { width: 18px; margin-left: 6px; vertical-align: middle; animation: fireShake 1s infinite alternate; }
@@ -20,8 +19,10 @@
         .sidebar-card { border: none; border-radius: 20px; position: sticky; top: 90px; background: #fff; }
         .nav-pills .nav-link { color: #555; border-radius: 12px; padding: 12px 20px; margin-bottom: 5px; transition: .3s; font-weight: 500; text-align: left; width: 100%; }
         .nav-pills .nav-link.active { background: #e7f1ff; color: #0d6efd; border: 1px solid #cfe2ff; font-weight: 600; }
-        .tab-pane:not(.active) { display: none; }
-        .search-section { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.05); margin-bottom: 20px; }
+        .tab-pane:not(.active){display:none;}
+        .badge-hot{background:#ffe3e3;color:#e03131;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content;animation:hotShake .8s infinite alternate}
+        @keyframes hotShake{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+        .search-section{background:#fff;border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.05);margin-bottom:20px;}
         .service-card { border: 1px solid #eee; border-radius: 20px; transition: .3s; background: #fff; height: 100%; }
         .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,.1); }
         .mobile-bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: rgba(255,255,255,.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid rgba(0,0,0,.05); box-shadow: 0 -5px 20px rgba(0,0,0,.05); z-index: 1000; }
@@ -44,7 +45,6 @@
     </style>
 </head>
 <body>
-
 <div class="modal fade" id="popupAdmin" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mx-auto" style="min-width: 320px; max-width: 450px;">
         <div class="modal-content border-0 rounded-4 shadow-lg p-4 text-center">
@@ -61,7 +61,6 @@
         </div>
     </div>
 </div>
-
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
     <div class="container-fluid px-2 px-lg-3">
         <div class="d-flex align-items-center">
@@ -166,7 +165,7 @@
                     <div class="row g-3">
                         <div class="col-6 col-md-4">
                             <div class="card service-card shadow-sm p-3">
-                                <div class="badge bg-primary-subtle text-primary mb-2" style="width: fit-content;">Netflix</div>
+                                <div class="badge-hot mb-2" style="width: fit-content;">Netflix</div>
                                 <h6 class="fw-bold small">Netflix 4K</h6>
                                 <p class="small text-muted mb-2">Bảo hành trọn đời.</p>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -281,34 +280,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    window.onload = () => { new bootstrap.Modal(document.getElementById('popupAdmin')).show(); };
-    function goToTab(tabId) {
-        document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('show', 'active'));
-        const targetTab = document.getElementById(tabId);
-        if (targetTab) {
-            targetTab.classList.add('show', 'active');
-            if (tabId !== 'home-content' && targetTab.getAttribute('data-loaded') !== 'true') {
-                targetTab.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-primary"></div><p class="mt-2 text-muted fw-bold">Đang tải dữ liệu...</p></div>`;
-                
-                fetch('page/' + tabId.replace('-content', '.html'))
-                .then(res => { if(!res.ok) throw new Error(); return res.text(); })
-                .then(html => { 
-                targetTab.innerHTML = html; 
-                targetTab.setAttribute('data-loaded', 'true');
-                initSvcFilter(targetTab); 
-    })
-            .catch(() => { 
-                targetTab.innerHTML = `<div class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill fs-1"></i><p class="mt-2 fw-bold">Dịch vụ đang cập nhật...</p></div>`; 
-    });
+document.addEventListener("DOMContentLoaded",()=>{
+new bootstrap.Modal(document.getElementById("popupAdmin")).show();
+});
+        function goToTab(tabId) {
+            document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('show', 'active'));
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('show', 'active');
+                if (tabId !== 'home-content' && targetTab.getAttribute('data-loaded') !== 'true') {
+                    targetTab.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-primary"></div><p class="mt-2 text-muted fw-bold">Đang tải dữ liệu...</p></div>`;
+                    fetch('page/' + tabId.replace('-content', '.html'))
+                    .then(res => { if(!res.ok) throw new Error(); return res.text(); })
+                    .then(html => { 
+                    targetTab.innerHTML = html;
+targetTab.getAttribute('data-loaded') !== 'true' && targetTab.setAttribute('data-loaded', 'true');
+runInlineScripts(targetTab);
+initSvcFilter(targetTab);
+                                })
+                .catch(() => { 
+                    targetTab.innerHTML = `<div class="text-center py-5 text-danger"><i class="bi bi-exclamation-triangle-fill fs-1"></i><p class="mt-2 fw-bold">Dịch vụ đang cập nhật...</p></div>`; 
+        });
+                }
             }
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll(`[onclick="goToTab('${tabId}')"]`).forEach(btn => btn.classList.add('active'));
+            const guide = document.getElementById('guideText'); if(guide) guide.style.display = 'none';
+            const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('mobileSidebar'));
+            if(offcanvas) offcanvas.hide();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        document.querySelectorAll(`[onclick="goToTab('${tabId}')"]`).forEach(btn => btn.classList.add('active'));
-        const guide = document.getElementById('guideText'); if(guide) guide.style.display = 'none';
-        const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('mobileSidebar'));
-        if(offcanvas) offcanvas.hide();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
     document.querySelectorAll('.select-jump').forEach(select => {
         select.addEventListener('change', function() {
             if (this.value) { goToTab(this.value); this.value = ""; }
@@ -329,29 +330,36 @@ function initSvcFilter(root){
   const list=root.querySelector("#svcList");
   const empty=root.querySelector("#svcEmpty");
   if(!filter || !list) return;
-
   const cards=[...list.querySelectorAll("[data-type]")];
-
   function apply(type){
     let shown=0;
     cards.forEach(c=>{
       const t=(c.getAttribute("data-type")||"").trim().toLowerCase();
-      const ok=t===type;
+      const ok=!type || t===type;
       c.classList.toggle("d-none", !ok);
       if(ok) shown++;
     });
     if(empty) empty.style.display=shown?"none":"block";
   }
-
-  if(!filter.value) filter.value="follow";
-  apply(filter.value);
-
+  apply("");
   filter.onchange=()=>{
-  window.scrollTo({top:0,behavior:"smooth"}); // ✅ luôn về đầu trang trước
-  apply(filter.value);
-};
+    window.scrollTo({top:0,behavior:"smooth"});
+    apply(filter.value);
+  }
+
+}
+function runInlineScripts(root) {
+    const scripts = root.querySelectorAll("script");
+    scripts.forEach(old => {
+        if (old.src) return;
+        const s = document.createElement("script");
+        s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+    });
 }
     window.onclick = () => { const ui = document.getElementById('support-ui'); if(ui) ui.style.display = 'none'; };
 </script>
+
 </body>
 </html>

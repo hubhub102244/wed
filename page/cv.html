@@ -1,0 +1,149 @@
+<style>
+.badge-hot{background:#ffe3e3;color:#e03131;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content;animation:hotShake .8s infinite alternate}
+.badge-new{background:#e7f5ff;color:#1971c2;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.badge-sale{background:#fff3bf;color:#e67700;font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;width:fit-content}
+.buy-btn{width:100%;font-size:11px;box-shadow:0 0 0 rgba(13,110,253,.6);animation:buyGlow 2s infinite}
+.service-card{border:1px solid #eee;border-radius:20px;transition:.25s}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.12)}
+@keyframes hotShake{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes buyGlow{0%{box-shadow:0 0 0 0 rgba(13,110,253,.6)}70%{box-shadow:0 0 0 12px rgba(13,110,253,0)}100%{box-shadow:0 0 0 0 rgba(13,110,253,0)}}
+</style>
+<div class="d-flex align-items-center mb-4">
+<h4 class="fw-bold text-primary mb-0">
+<i class="bi bi-facebook me-2"></i>Dịch vụ Facebook
+</h4>
+<span class="badge bg-primary-subtle text-primary ms-3 rounded-pill">
+Bảo hành dài hạn
+</span>
+</div>
+<div class="mb-3">
+<b class="text-dark">✨ Tất cả dịch vụ liên quan ở đây</b>
+<i class="bi bi-arrow-down-square-fill text-muted"></i>
+<select id="svcFilter" class="form-select mt-2">
+<option value="">Tất cả dịch vụ</option>
+<option value="follow">Follow</option>
+<option value="like">Like</option>
+<option value="share">Share</option>
+<option value="comment">Comment</option>
+<option value="reaction">Cảm xúc</option>
+</select>
+</div>
+<div class="row g-3" id="svcList"></div>
+<div id="svcEmpty" class="text-center text-muted py-5" style="display:none">
+<i class="bi bi-info-circle fs-2 d-block mb-2"></i>
+<b>Chưa có dịch vụ cho mục này</b>
+</div>
+<script>
+const zalo="https://zalo.me/0942962616"
+const priceAdd=10000
+const services=[]
+function addService(type,title,note,price,unit,status="NONE"){
+services.push({type,title,note,price,unit,status})
+}
+
+/* DANH SÁCH DỊCH VỤ */
+
+addService("follow","Facebook Follow Cá Nhân","Follow nhanh ổn định",6000,"/1k","NEW")
+addService("share","Facebook Share Bài Viết","Share thật tăng tiếp cận",20,"/share","HOT")
+addService("like","Facebook Like Bài Viết","Like thật tăng tương tác",15,"/like","SALE")
+addService("comment","Facebook Comment","Comment random",50,"/cmt")
+addService("reaction","Facebook Reaction","❤️ 😆 😮 😡",22000,"/1k","HOT")
+
+
+const list=document.getElementById("svcList")
+const filter=document.getElementById("svcFilter")
+
+
+function getBadge(status){
+
+if(status==="HOT") return `<div class="badge-hot mb-2">FACEBOOK HOT 🔥</div>`
+if(status==="NEW") return `<div class="badge-new mb-2">FACEBOOK NEW</div>`
+if(status==="SALE") return `<div class="badge-sale mb-2">FACEBOOK SALE</div>`
+
+return `<div class="badge bg-primary-subtle text-primary mb-2" style="width:fit-content">FACEBOOK</div>`
+
+}
+
+
+function render(data){
+
+list.innerHTML=""
+
+if(!data.length){
+document.getElementById("svcEmpty").style.display="block"
+return
+}
+
+document.getElementById("svcEmpty").style.display="none"
+
+
+/* HOT lên đầu */
+
+data.sort((a,b)=>{
+if(a.status==="HOT" && b.status!=="HOT") return -1
+if(a.status!=="HOT" && b.status==="HOT") return 1
+return 0
+})
+
+
+data.forEach(s=>{
+
+let price=(s.price+priceAdd).toLocaleString("vi-VN")+"đ"
+
+list.innerHTML+=`
+
+<div class="col-6 col-md-4">
+
+<div class="card service-card shadow-sm p-3">
+
+${getBadge(s.status)}
+
+<h6 class="fw-bold small mb-1">${s.title}</h6>
+
+<p class="small text-muted mb-2" style="font-size:11px">${s.note}</p>
+
+<div class="fw-bold text-primary mb-2">
+${price}
+<span class="text-muted fw-normal" style="font-size:10px">${s.unit}</span>
+</div>
+
+<button class="btn btn-primary btn-sm rounded-pill buy-btn">
+Mua ngay
+</button>
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+
+function applyFilter(){
+
+let type=filter.value
+
+let result=services.filter(s=>{
+return !type || s.type===type
+})
+
+render(result)
+
+}
+
+
+render(services)
+
+filter.addEventListener("change",applyFilter)
+
+
+document.addEventListener("click",e=>{
+if(e.target.classList.contains("buy-btn")){
+window.open(zalo,"_blank")
+}
+})
+
+</script>
